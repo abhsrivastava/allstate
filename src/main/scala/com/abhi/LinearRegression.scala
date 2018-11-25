@@ -15,10 +15,10 @@ object LinearRegression extends App {
 
     val spark = SparkSessionHelper.getSession()
     import spark.implicits._
-    
+
     // define hyper parameters
     val numFolds = 10
-    val MaxIter : Seq[Int] = Seq(1000)
+    val MaxIter : Seq[Int] = Seq(10)
     val RegParam : Seq[Double] = Seq(.001)
     val Tol : Seq[Double] = Seq(1e-6)
     val ElasticNetParam : Seq[Double] = Seq(.001)
