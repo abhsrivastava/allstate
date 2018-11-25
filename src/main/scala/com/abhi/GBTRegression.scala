@@ -104,6 +104,9 @@ val output = "==================================================================
         .withColumnRenamed("prediction", "loss")
         .coalesce(1)
         .write.format("com.databricks.spark.csv")
+        .mode(SaveMode.Overwrite)
         .option("header", "true")
         .save("output/result_GBT.csv")        
+
+    spark.stop()
 }

@@ -99,6 +99,7 @@ object LinearRegression extends App {
             .withColumnRenamed("prediction", "loss")
             .coalesce(1) // to get all the predictions in a single csv file
             .write.format("com.databricks.spark.csv")
+            .mode(SaveMode.Overwrite)
             .option("header", "true")
             .save("output/result_LR.csv")
             
