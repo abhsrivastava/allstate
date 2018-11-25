@@ -6,6 +6,7 @@ import org.apache.spark.ml.regression._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
+import java.io.File
 
 object GBTRegression extends App {
     val spark = SparkSessionHelper.getSession()
@@ -97,6 +98,7 @@ val output = "==================================================================
         "=====================================================================\n"
 
     println("Run prediction over test dataset")
+    new File("output/result_GBT.csv").delete()
     cvModel.transform(Preprocessing.test)
         .select("id", "prediction")
         .withColumnRenamed("prediction", "loss")

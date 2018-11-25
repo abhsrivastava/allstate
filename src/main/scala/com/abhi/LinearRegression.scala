@@ -10,6 +10,7 @@ import org.apache.spark.ml._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
+import java.io.File
 
 object LinearRegression extends App {
 
@@ -91,6 +92,8 @@ object LinearRegression extends App {
 
     // OK so now the actual prediction
     println("Run prediction on the test set")
+    // remove old prediction file
+    new File("output/result_LR.csv").delete()
     cvModel.transform(Preprocessing.test)
             .select("id", "prediction")
             .withColumnRenamed("prediction", "loss")
