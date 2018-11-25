@@ -138,6 +138,17 @@ object AllState extends App {
         s"===========================================\n"
     
     println(results)     
+
+    // OK so now the actual prediction
+    println("Run prediction on the test set")
+    cvModel.transform(test)
+            .select("id", "prediction")
+            .withColumnRenamed("prediction", "loss")
+            .coalesce(1) // to get all the predictions in a single csv file
+            .write.format("com.databricks.spark.csv")
+            .option("header", "true")
+            .save("output/result_LR.csv")
+            
     spark.stop()
 
 }
