@@ -6,7 +6,6 @@ import org.apache.spark.ml.regression._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
-import java.io.File
 
 object GBTRegression extends App {
     val spark = SparkSessionHelper.getSession()
@@ -97,9 +96,17 @@ val output = "==================================================================
         s"GBT features importances: ${Preprocessing.featureCols.zip(FI_to_List_sorted).map(t => s"t${t._1} = ${t._2}").mkString("\n")}\n" +
         "=====================================================================\n"
 
+    // save the model
+    cvModel
+        .write
+        .overwrite()
+        .save("model/GBT_model")
+
+    // load the model
+    val fittedModel = CrossValidatorModel.load("model/GBT_model")
+
     println("Run prediction over test dataset")
-    new File("output/result_GBT.csv").delete()
-    cvModel.transform(Preprocessing.test)
+    fittedModel.transform(Preprocessing.test)
         .select("id", "prediction")
         .withColumnRenamed("prediction", "loss")
         .coalesce(1)

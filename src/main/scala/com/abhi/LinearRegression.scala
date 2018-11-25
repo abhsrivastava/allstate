@@ -10,7 +10,6 @@ import org.apache.spark.ml._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
-import java.io.File
 
 object LinearRegression extends App {
 
@@ -90,11 +89,17 @@ object LinearRegression extends App {
     
     println(results)     
 
+    // save the model
+    cvModel
+        .write
+        .overwrite()
+        .save("model/LR_model")
+
+    // load the model
+    val fittedModel = CrossValidatorModel.load("model/LR_model")
     // OK so now the actual prediction
     println("Run prediction on the test set")
-    // remove old prediction file
-    new File("output/result_LR.csv").delete()
-    cvModel.transform(Preprocessing.test)
+    fittedModel.transform(Preprocessing.test)
             .select("id", "prediction")
             .withColumnRenamed("prediction", "loss")
             .coalesce(1) // to get all the predictions in a single csv file
