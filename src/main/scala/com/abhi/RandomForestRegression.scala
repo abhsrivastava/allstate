@@ -6,6 +6,7 @@ import org.apache.spark.ml.regression._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
+import java.io.{PrintWriter, FileOutputStream}
 
 object RandomForestRegression extends App {
     val spark = SparkSessionHelper.getSession()
@@ -68,7 +69,7 @@ object RandomForestRegression extends App {
                                 .toArray    
 
 
-val output = "=====================================================================\n" +
+val results = "=====================================================================\n" +
     s"Param trainSample: ${Preprocessing.train}\n" +
     s"Param testSample: ${Preprocessing.test}\n" +
     s"TrainingData count: ${Preprocessing.trainingData.count}\n" +
@@ -95,6 +96,8 @@ val output = "==================================================================
     s"RF params explained: ${bestModel.stages.last.asInstanceOf[RandomForestRegressionModel].explainParams}\n" +
     s"RF features importances: ${Preprocessing.featureCols.zip(FI_to_List_sorted).map(t => s"t${t._1} =${t._2}").mkString("")}\n" +
     "=====================================================================\n"
+
+    new PrintWriter(new FileOutputStream("output/result_RF.txt", false)) { write(results); close}   
 
     // save the model
     cvModel

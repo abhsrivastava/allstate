@@ -10,6 +10,7 @@ import org.apache.spark.ml._
 import org.apache.spark.ml.evaluation._
 import org.apache.spark.ml.tuning._
 import org.apache.spark.mllib.evaluation._
+import java.io.{PrintWriter, FileOutputStream}
 
 object LinearRegression extends App {
 
@@ -87,7 +88,7 @@ object LinearRegression extends App {
         s"LR Params Explained: ${bestModel.stages.last.asInstanceOf[LinearRegressionModel].explainParams}\n" + 
         s"===========================================\n"
     
-    println(results)     
+    new PrintWriter(new FileOutputStream("output/result_LR.txt", false)) { write(results); close}   
 
     // save the model
     cvModel

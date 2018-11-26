@@ -5,12 +5,13 @@ import org.apache.spark.sql.SparkSession
 object SparkSessionHelper {
     def getSession() : SparkSession = {
         // initialize the spark session
-        SparkSession
+        val session = SparkSession
             .builder
             .master("local[*]")
-            .setLogLevel("WARN")
             .config("spark.sql.warehouse.dir", "/User/data")
             .appName("AllStateInsurance")
             .getOrCreate()
+        session.sparkContext.setLogLevel("WARN")
+        session
     }
 }
