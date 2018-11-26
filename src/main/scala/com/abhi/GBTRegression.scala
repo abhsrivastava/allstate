@@ -14,7 +14,7 @@ object GBTRegression extends App {
     
     // define hyper parameters
     val NumTrees = Seq(5, 10, 15)
-    val MaxBins = Seq(5, 7, 9)
+    val MaxBins = Seq(25, 27, 29)
     val NumFolds = 10
     val MaxIter : Seq[Int] = Seq(10)
     val MaxDepth : Seq[Int] = Seq(10)
