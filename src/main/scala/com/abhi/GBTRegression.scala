@@ -97,7 +97,7 @@ val results = "=================================================================
         s"GBT features importances: ${Preprocessing.featureCols.zip(FI_to_List_sorted).map(t => s"t${t._1} = ${t._2}").mkString("\n")}\n" +
         "=====================================================================\n"
 
-    new PrintWriter(new FileOutputStream("output/result_LR.txt", false)) { write(results); close}   
+    new PrintWriter(new FileOutputStream("output/result_GBT.txt", false)) { write(results); close}   
 
     // save the model
     cvModel
