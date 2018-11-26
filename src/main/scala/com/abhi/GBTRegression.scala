@@ -84,7 +84,7 @@ val output = "==================================================================
         s"Training data R-squared = ${trainRegressionMetrics.r2}\n" +
         s"Training data MAE = ${trainRegressionMetrics.meanAbsoluteError}\n" +
         s"Training data Explained variance = ${trainRegressionMetrics.explainedVariance}\n" +
-        "\n=====================================================================\n" +
+        "=====================================================================\n" +
         s"Validation data MSE = ${validRegressionMetrics.meanSquaredError}\n" +
         s"Validation data RMSE = ${validRegressionMetrics.rootMeanSquaredError}\n" +
         s"Validation data R-squared = ${validRegressionMetrics.r2}\n" +

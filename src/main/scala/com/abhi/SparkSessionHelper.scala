@@ -8,6 +8,7 @@ object SparkSessionHelper {
         SparkSession
             .builder
             .master("local[*]")
+            .setLogLevel("WARN")
             .config("spark.sql.warehouse.dir", "/User/data")
             .appName("AllStateInsurance")
             .getOrCreate()
