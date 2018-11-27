@@ -21,7 +21,7 @@ object RandomForestRegression extends App {
     val model = new RandomForestRegressor()
                     .setFeaturesCol("features")
                     .setLabelCol("label")
-                    .setImpurity("gini")
+                    .setImpurity("variance")
                     .setMaxBins(20)
                     .setMaxDepth(20)
                     .setNumTrees(50)                    
